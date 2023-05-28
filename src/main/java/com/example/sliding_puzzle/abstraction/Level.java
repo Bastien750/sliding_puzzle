@@ -39,12 +39,13 @@ public class Level {
         this.numberLevel = numberLevel;
     }
 
+    // Can choose level
     public void chooseLevel() {
         this.buttonTopLevel.setOnAction(e -> {
             if(this.levelAccess()) {
                 this.topLevel();
             } else {
-                this.showAlert = new ShowAlert("Impossible", "Vous devez d'abord réussir le level " + this.getIntLevelNumber());
+                this.showAlert = new ShowAlert("Impossible", "You must first pass the level" + this.getIntLevelNumber());
             }
         });
 
@@ -53,6 +54,7 @@ public class Level {
         });
     }
 
+    // Go to the nextLevel
     public void topLevel() {
         int level = this.getIntLevelNumber();
         if(level < 10) {
@@ -65,6 +67,7 @@ public class Level {
         }
     }
 
+    // Go the lower level
     public void lowerLevel() {
         int level = this.getIntLevelNumber();
         if(level > 1) {
@@ -77,12 +80,14 @@ public class Level {
         }
     }
 
+    // Get the current level number
     public int getIntLevelNumber() {
         String numericValue = this.numberLevel.getText().replaceAll("\\D+", "");
         int level = Integer.parseInt(numericValue);
         return level;
     }
 
+    // Verify if you can access in the next level
     public boolean levelAccess() {
         int record = GameController.getRecord().getFileLevelRecord();
         if(record == 0) {

@@ -19,6 +19,7 @@ public class LabelTile {
         this.labelTile = labelTile;
     }
 
+    // Label Style
     public void labelTileStyle() {
         this.labelTile.setStyle("-fx-background-color:grey;");
     }

@@ -19,6 +19,8 @@ public class GameController {
 
     private static ResetGame resetGame = new ResetGame();
 
+    private static Resolve resolve = new Resolve();
+
 
     public void initNbTurns(Label labelNbTurns){
         GameController.nbTurns.setNbTurns(labelNbTurns);
@@ -43,8 +45,13 @@ public class GameController {
         GameController.record.setRecordFile(GameController.getSlidingGame().getFileName());
     }
 
-    public void initResetGame(Button resetGameRandom) {
+    public void initResetGame(Button resetGameRandom, Button resetGameMovingTile) {
         GameController.resetGame.setResetGame(resetGameRandom);
+        GameController.resetGame.setResetMovingTile(resetGameMovingTile);
+    }
+
+    public void initResolve(Button resolve) {
+        GameController.resolve.setResolve(resolve);
     }
     public static NbTurns getNbTurns() {
         return GameController.nbTurns;
@@ -92,5 +99,13 @@ public class GameController {
 
     public static void setResetGame(ResetGame resetGame) {
         GameController.resetGame = resetGame;
+    }
+
+    public static Resolve getResolve() {
+        return resolve;
+    }
+
+    public static void setResolve(Resolve resolve) {
+        GameController.resolve = resolve;
     }
 }

@@ -2,6 +2,8 @@ package com.example.sliding_puzzle.abstraction;
 
 import com.example.sliding_puzzle.controllers.GameController;
 import com.example.sliding_puzzle.controllers.GameMouvement;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -11,13 +13,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.util.Duration;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
+import java.util.*;
 
 
 public class SlidingGame {
@@ -27,6 +28,12 @@ public class SlidingGame {
     private String fileName;
 
     private AnchorPane anchorPane;
+
+    private PriorityQueue<SlindingGameNode> openList;
+    private Set<String> closedSet;
+    private List<List<Integer>> goalState;
+    private int numRows;
+    private int numCols;
 
 
     public SlidingGame() {
@@ -58,6 +65,8 @@ public class SlidingGame {
         this.anchorPane = anchorPane;
     }
 
+
+    // Function that create the GridPane(Slinding Game) using .txt fils  and display in the application
     public void createSlidingGame() {
         ArrayList<Integer> listNumberButton = this.listNumberButton();
 
@@ -123,6 +132,7 @@ public class SlidingGame {
         this.anchorPane.getChildren().add(this.slidingGame);
     }
 
+    // Function who has the list number clicked
     public ArrayList<Integer> listNumberButton() {
         ArrayList<Integer> listSommePlus = new ArrayList<Integer>();
         try (BufferedReader br = new BufferedReader(new FileReader(this.fileName))) {
@@ -145,6 +155,7 @@ public class SlidingGame {
         return listSommePlus;
     }
 
+    // Funtion who create a tile according to his symbol
     public Tile createTile(char caracter, int chooseRandomNumber) {
         switch (caracter) {
             case '+':
@@ -161,6 +172,7 @@ public class SlidingGame {
 
     }
 
+    // Get column of the slidingGame
     public int getGridColumn() {
         int maxColumns = 0;
 
@@ -181,6 +193,7 @@ public class SlidingGame {
         return maxColumns;
     }
 
+    // Get row of the slidingGame
     public int getGridRow() {
         int lineCount = 0;
 
@@ -200,6 +213,7 @@ public class SlidingGame {
 
     }
 
+    // Get buttons by his coordinates
     public Button getButtonByCoordinates(int row, int col) {
         for (Node node : this.slidingGame.getChildren()) {
             if (node instanceof Button) {
@@ -212,10 +226,137 @@ public class SlidingGame {
         return null;
     }
 
+    // Clear the gridPane
     public void clearGridPane(){
         GameController.getNbTurns().resetNbTurns();
         this.slidingGame.getChildren().clear();
         this.anchorPane.getChildren().remove(this.slidingGame);
+    }
+
+    // Count the number of + int the .txt file
+    public int nbPlus() {
+        int nbPlus = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(this.fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.contains("Record")) {
+                    break;  // Sortir de la boucle si on rencontre la ligne contenant "Record"
+                }
+                for(char c : line.toCharArray()) {
+                    if(c == '+') {
+                        nbPlus++;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return nbPlus;
+    }
+
+    public List<Integer> halfFinalBoard() {
+        List<Integer> halfFinalBoard = new ArrayList<>();
+        int nbPlus = 0;
+        int nbemptyCase = 0;
+        int increment = 0;
+        List<Integer> listBlockCase = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(this.fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.contains("Record")) {
+                    break;  // Sortir de la boucle si on rencontre la ligne contenant "Record"
+                }
+                for(char c : line.toCharArray()) {
+                    switch (c) {
+                        case '+':
+                            nbPlus++;
+                            break;
+                        case '-':
+                            nbemptyCase++;
+                            break;
+                        case '/':
+                            listBlockCase.add(increment);
+                            break;
+                        default:
+                            break;
+                    }
+                    increment++;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for(int i=1; i<=nbPlus; i++) {
+            halfFinalBoard.add(i);
+        }
+
+        for(int i=1; i<=nbemptyCase; i++) {
+            halfFinalBoard.add(0);
+        }
+
+        for(int i=0; i<listBlockCase.size(); i++) {
+            halfFinalBoard.add(listBlockCase.get(i), -1);
+        }
+        return halfFinalBoard;
+    }
+
+    public List<List<Integer>> finalBoard() {
+        System.out.println("half " + this.halfFinalBoard());
+        List<Integer> halfFinalBoard = this.halfFinalBoard();
+        List<List<Integer>> finalBoard = new ArrayList<>();
+        int row = this.getGridRow();
+
+        for(int i=0; i<halfFinalBoard.size(); i+= row) {
+            List<Integer> finalBoardSubList = new ArrayList<>();
+            for(int j=i; j<i+row; j++) {
+                finalBoardSubList.add(halfFinalBoard.get(j));
+            }
+            finalBoard.add(finalBoardSubList);
+        }
+
+        return finalBoard;
+    }
+
+
+    public List<List<Integer>> initalBoard() {
+        int gridRow = this.getGridRow();
+        int gridColumn = this.getGridColumn();
+        List<List<Integer>> initialBoard = new ArrayList<>();
+//        System.out.println(gridRow + " | " + gridColumn);
+        for(int row = 0; row < gridRow; row++) {
+            List<Integer> initialBoard2 = new ArrayList<>();
+            for(int column = 0; column < gridColumn; column++) {
+                if(this.isLabel(row, column)){
+                    initialBoard2.add(-1);
+                } else {
+                    Button buttonText = this.getButtonByCoordinates(row, column);
+                    String buttonNumber = buttonText.getText();
+                    if(buttonText.getText() == ""){
+                        initialBoard2.add(0);
+                    } else {
+                        initialBoard2.add(Integer.parseInt(buttonNumber));
+                    }
+                }
+
+            }
+
+            initialBoard.add(initialBoard2);
+        }
+
+        return initialBoard;
+    }
+
+    public boolean isLabel(int row, int col){
+        for (Node node : this.slidingGame.getChildren()) {
+            if (node instanceof Label) {
+                Label label = (Label) node;
+                if (GridPane.getRowIndex(label) == row && GridPane.getColumnIndex(label) == col) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 

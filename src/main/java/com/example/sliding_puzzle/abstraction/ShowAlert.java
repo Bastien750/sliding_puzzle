@@ -8,6 +8,7 @@ public class ShowAlert {
 
     private String content;
 
+    // Constructor that show an alert
     public ShowAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

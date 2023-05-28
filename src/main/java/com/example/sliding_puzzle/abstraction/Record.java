@@ -32,6 +32,7 @@ public class Record {
         this.recordLabel = recordLabel;
     }
 
+    // Update the record level
     public void  updateRecord() {
         int nbTurns = Integer.parseInt(GameController.getNbTurns().getNbTurns().getText());
         int currentRecord = this.getFileLevelRecord();
@@ -47,6 +48,7 @@ public class Record {
         }
     }
 
+    // Modiify the record Level
     public void modifiyRecordFile(int newRecord) {;
         String recordLine = "Record: ";
 
@@ -72,6 +74,7 @@ public class Record {
         }
     }
 
+    // Get the current record level
     public int getFileLevelRecord() {
         String recordLine = "Record: ";
         int recordValue = 0;

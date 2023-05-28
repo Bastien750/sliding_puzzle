@@ -28,20 +28,25 @@ public class GameApplication extends Application {
     GameController gameController = new GameController();
 
 
-
+    //  Start the graphics application.
     @Override
     public void start(Stage stage) throws IOException {
         BorderPane root = this.fxmlLoader.load();
 
+        // Init Classes
         this.gameController.initNbTurns(this.getNbTurns());
         this.gameController.initLevel(this.getButtonTopLevel(), this.getButtonLowerLevel(), this.getNumberLevel());
         this.gameController.initSlidingGame(this.getAnchorePane());
         this.gameController.initGameMouvement(GameController.getSlidingGame());
         this.gameController.initRecord(this.getRecord());
-        this.gameController.initResetGame(this.getResetGameRandom());
-//        this.gameController.clearLevel()
+        this.gameController.initResetGame(this.getResetGameRandom(), this.getResetGameMoveTile());
+        this.gameController.initResolve(this.getResolve());
+
+        // Button events
         GameController.getSlidingGame().createSlidingGame();
         GameController.getResetGame().resetRandom();
+        GameController.getResetGame().resetMovingTile();
+        GameController.getResolve().resolveSlidingGame();
 
         Scene scene = new Scene(root, 1200,800);
 
@@ -53,6 +58,7 @@ public class GameApplication extends Application {
 
 
 
+    // Get all elements in the application
     public Label getNbTurns() {
         Label labelNbTurns = (Label) fxmlLoader.getNamespace().get("nbTurns");
         return labelNbTurns;
@@ -86,6 +92,16 @@ public class GameApplication extends Application {
     public Button getResetGameRandom() {
         Button resetGameRandom = (Button) fxmlLoader.getNamespace().get("resetRandom");
         return resetGameRandom;
+    }
+
+    public Button getResetGameMoveTile() {
+        Button resetGameMoveTile= (Button) fxmlLoader.getNamespace().get("resetMoveTile");
+        return resetGameMoveTile;
+    }
+
+    public Button getResolve() {
+        Button resolve= (Button) fxmlLoader.getNamespace().get("resolve");
+        return resolve;
     }
 
     public static void main(String[] args) {

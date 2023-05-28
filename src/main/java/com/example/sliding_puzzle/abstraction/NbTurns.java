@@ -22,11 +22,13 @@ public class NbTurns {
         return this.nbTurns;
     }
 
+    // Increment number of turns
     public void incrementTurn()  {
         int currentNbTurns = Integer.parseInt(this.nbTurns.getText()) + 1;
         this.nbTurns.setText(Integer.toString(currentNbTurns));
     }
 
+    // Reset number of turns on 0
     public void resetNbTurns() {
         this.nbTurns.setText("0");
     }

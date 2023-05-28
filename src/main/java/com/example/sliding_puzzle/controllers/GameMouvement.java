@@ -31,6 +31,14 @@ public class GameMouvement {
         this.slidingGame = slidingGame;
     }
 
+    public ArrayList<Button> getListButtonClicked() {
+        return listButtonClicked;
+    }
+
+    public void setListButtonClicked(ArrayList<Button> listButtonClicked) {
+        this.listButtonClicked = listButtonClicked;
+    }
+
     public void selector(Button buttonClicked) {
         this.listButtonClicked.add(buttonClicked);
         if(this.listButtonClicked.size() >= 2){
@@ -50,23 +58,32 @@ public class GameMouvement {
         }
     }
 
+
+
     public void exchange() {
         Button button1 = this.listButtonClicked.get(0);
         Button button2 = this.listButtonClicked.get(1);
         // Check that we have a single black square
         if((button1.getText() == "") ^ (button2.getText() == "")) {
-            if(this.checkAdj(button1, button2)) {
+            if (this.checkAdj(button1, button2)) {
                 this.swap(button1, button2);
                 GameController.getNbTurns().incrementTurn();
                 if(this.gameStatus.checkWin(GameController.getGameMouvement().slidingGame)) {
-                    GameController.getRecord().updateRecord();
-                    this.showAlert = new ShowAlert("Niveau supérieur", "Vous avez validé le niveau !");
-                    GameController.getLevel().topLevel();
-                    GameController.getNbTurns().resetNbTurns();
-                    System.out.println("Gagné");
+                    if(!GameController.getResetGame().isAutoCompletion()) {
+                        GameController.getRecord().updateRecord();
+                        this.showAlert = new ShowAlert("Niveau supérieur", "Vous avez validé le niveau !");
+                        GameController.getLevel().topLevel();
+                        GameController.getNbTurns().resetNbTurns();
+                        System.out.println("Gagné");
+                    } else {
+                        GameController.getSlidingGame().clearGridPane();
+                        GameController.getSlidingGame().createSlidingGame();
+                        this.showAlert = new ShowAlert("Reset Game", "Reset Game");
+                    }
                 }
-                // Ajouter 1 au nb essai + appeler fonction win
             }
+
+
         }
     }
 
@@ -77,6 +94,7 @@ public class GameMouvement {
         int Ybutton2 = GridPane.getColumnIndex(button2);
 
         if((Xbutton2 == Xbutton1 + 1 && Ybutton2 == Ybutton1) || (Xbutton2 == Xbutton1 - 1 && Ybutton2 == Ybutton1) || (Xbutton2 == Xbutton1 && Ybutton2 == Ybutton1 + 1) || (Xbutton2 == Xbutton1 && Ybutton2 == Ybutton1 - 1)) {
+            System.out.println("Oui");
             return true;
         }
         return false;

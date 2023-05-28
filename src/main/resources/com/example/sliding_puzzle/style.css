@@ -1,0 +1,105 @@
+#buttonLowerLevel {
+    -fx-background-color: transparent;
+    -fx-background-image: url('image/flecheG.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-padding: 10px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-shape: "M50,50 C27.767,50 9.877,67.89 9.877,90.123 C9.877,112.355 27.767,130.245 50,130.245 C72.233,130.245 90.123,112.355 90.123,90.123 C90.123,67.89 72.233,50 50,50 Z";
+    -fx-background-radius: 50%;
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+}
+
+#buttonTopLevel {
+    -fx-background-color: transparent;
+    -fx-background-image: url('image/flecheD.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-padding: 10px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-shape: "M50,50 C27.767,50 9.877,67.89 9.877,90.123 C9.877,112.355 27.767,130.245 50,130.245 C72.233,130.245 90.123,112.355 90.123,90.123 C90.123,67.89 72.233,50 50,50 Z";
+    -fx-background-radius: 50%;
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+}
+#resetRandom {
+    -fx-background-color: transparent;
+    -fx-background-image: url('image/resetRandom.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-padding: 10px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-shape: "M50,50 C27.767,50 9.877,67.89 9.877,90.123 C9.877,112.355 27.767,130.245 50,130.245 C72.233,130.245 90.123,112.355 90.123,90.123 C90.123,67.89 72.233,50 50,50 Z";
+    -fx-background-radius: 50%;
+    -fx-min-width: 120px;
+    -fx-min-height: 100px;
+}
+
+#resetMoveTile {
+    -fx-background-color: transparent;
+    -fx-background-image: url('image/movingTile.jpeg');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-padding: 10px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-shape: "M50,50 C27.767,50 9.877,67.89 9.877,90.123 C9.877,112.355 27.767,130.245 50,130.245 C72.233,130.245 90.123,112.355 90.123,90.123 C90.123,67.89 72.233,50 50,50 Z";
+    -fx-background-radius: 50%;
+    -fx-min-width: 70px;
+    -fx-min-height: 70px;
+}
+
+#resolve {
+    -fx-background-color: transparent;
+    -fx-background-image: url('image/resolve.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-padding: 10px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 0;
+    -fx-min-width: 120px; /* Valeur de largeur augmentée */
+    -fx-min-height: 120px;
+}
+
+
+.button:hover {
+    -fx-opacity: 0.8;
+}
+
+.button:pressed {
+    -fx-opacity: 0.6;
+}
+
+.label {
+    -fx-font-size: 35px;
+    -fx-text-fill: white;
+    -fx-font-family: "Georgia"; /* Remplacez par la police de votre choix */
+}
+
+#numberLevel {
+    -fx-font-size: 48px;
+    -fx-text-fill: #f5f4f4;
+    -fx-font-family: "Georgia"; /* Remplacez par la police de votre choix */
+}
+
+#nbTurns {
+    -fx-font-size: 35px;
+    -fx-font-family: "Georgia"; /* Remplacez par la police de votre choix */
+}
+
+#record {
+    -fx-font-size: 35px;
+    -fx-font-family: "Georgia"; /* Remplacez par la police de votre choix */
+}
+
+

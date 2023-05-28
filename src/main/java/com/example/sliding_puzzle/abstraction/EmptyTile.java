@@ -5,12 +5,14 @@ import javafx.scene.control.Button;
 public class EmptyTile extends Tile{
 
 
+    // Constructor
     public EmptyTile() {
         super();
         super.getTile().setText("");
         this.emptyTileStyle();
     }
 
+    // Style emptyTile
     public void emptyTileStyle() {
         super.getTile().setStyle("-fx-background-color:black;");
     }
