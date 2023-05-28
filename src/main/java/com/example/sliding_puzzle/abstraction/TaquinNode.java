@@ -1,4 +1,4 @@
-package com.example.sliding_puzzle;
+package com.example.sliding_puzzle.abstraction;
 
 import java.util.*;
 
