@@ -169,14 +169,13 @@ public class ResetGame {
                                 gameMouvement.selector(buttonAdj);
                                 this.gameMouvement.getListButtonClicked().clear();
                                 GameController.getNbTurns().resetNbTurns();
+                                this.autoCompletion = false;
                             }
                         }
 
                     }
                 }
             }
-
         }
-        this.autoCompletion = false;
     }
 }
