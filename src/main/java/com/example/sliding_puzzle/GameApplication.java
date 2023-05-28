@@ -52,6 +52,7 @@ public class GameApplication extends Application {
 
         // Affichage de la scène
         stage.setScene(scene);
+        stage.setTitle("SLIDING PUZZLE");
         stage.show();
     }
 
